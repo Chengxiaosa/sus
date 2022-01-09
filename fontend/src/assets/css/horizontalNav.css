@@ -1,0 +1,25 @@
+#horizontal-nav{
+    margin-top: 40px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#horizontal-nav>div{
+    margin-right: 10px;
+    text-align: center;
+}
+
+#horizontal-nav>div>a{
+    width:100%;
+    display: inline-block;
+    color:white;
+    background-color:#3f6b77;
+    font-size:20px;
+    border: solid 2px #3ac0d8;
+    text-decoration: none;
+    cursor: pointer;
+}
+#horizontal-nav>div>a.active{
+    background-color: #6cb8c0;
+}
+

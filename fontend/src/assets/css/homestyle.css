@@ -1,0 +1,106 @@
+.imgs
+{
+    flex-direction:row;
+    display: flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    width:80%;
+    margin-left: 10%;
+}
+
+.rankNum
+{
+    margin-top:18px;
+    float:flex;
+    border:2px solid #6997AF;
+    flex-direction:column;
+    justify-content: center;
+}
+
+/* homebody */
+.bodypaper{
+    text-align: center;
+    /* background-color: #111D4A; */
+}
+
+
+/* 服务器使用情况 */
+.paper{
+	text-align: center;
+	background-color: #28345A;
+	color: #ECE8EF;
+	font-size: 18px;
+}
+.link:visited{
+    color: #5CD0FD;
+}
+
+.link:hover{
+    color: #5CD0FD;
+}
+.link:active{
+    color: #5CD0FD;
+}
+.link:link{
+    color: #5CD0FD;
+}
+
+
+.ltitle{
+	color: #5CD0FD;
+	margin-bottom: 37.5px;
+}
+
+.parent {
+
+    overflow-y: scroll;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.parent::-webkit-scrollbar {
+    display: none;
+}
+/*设置的子盒子高度大于父盒子，产生溢出效果*/
+.child {
+    height: auto;
+}
+
+.child li {
+    height: 30px;
+    margin: 0px;
+}
+
+/* 顶级域名分布和IP所在城市 */
+.rankpaper{
+    text-align: center;
+    background-color: #304753;
+    color:white;
+    font-size:18px;
+}
+
+/* 当日发现 */
+.datapaper{
+    text-align: center;
+    background-color: #304753;
+}
+
+/* .dailypaper{
+    text-align: center;
+    background-color: #304753;
+    color:white;
+    font-size:15px;
+} */
+
+.Intropaper{
+    display: flex;
+    flex-direction:column;
+    
+}
+
+.Introitem{
+    display: flex;
+    text-align: left;
+	background-color: #28345A;
+	color: #ECE8EF;
+	font-size: 20px;
+}

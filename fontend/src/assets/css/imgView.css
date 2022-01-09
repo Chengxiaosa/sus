@@ -1,0 +1,31 @@
+#container {
+	width: 400px;
+	height: 500px;
+	overflow: hidden;
+}
+ 
+#photo {
+	width: 1600px;
+	animation: switch 10s ease-out infinite;
+}
+ 
+#photo > img {
+	float: left;
+	width: 400px;
+	height: 500px;
+}
+ 
+@keyframes switch {
+	0%, 20% {
+		margin-left: 0;
+	}
+	28%, 48% {
+		margin-left: -400px;
+	}
+	56%, 76% {
+		margin-left: -800px;
+	}
+    84%, 100% {
+		margin-left: -1200px;
+	}
+}

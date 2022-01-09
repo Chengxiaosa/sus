@@ -1,0 +1,28 @@
+#nav{
+    /* margin-top: 40px; */
+    display: flex;
+    justify-content: flex-start;
+    z-index: 999;
+}
+
+#nav>div{
+    margin-right: 10px;
+    text-align: center;
+}
+
+#nav>div>a{
+    width:100%;
+    display: block;
+    color:#ECE8EF;
+    /* background-color:#6cb8c0; */
+    font-size:24px;
+    /* border: solid 2px #3ac0d8; */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+#nav>div>a:hover,#nav>div>a.active{
+    color: #5CD0FD;
+    /* background-color: #3f6b77; */
+}

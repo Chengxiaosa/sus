@@ -1,0 +1,65 @@
+{
+    "foreign_countryData": [
+        {
+            "countryName": "\u4e2d\u56fd\u9999\u6e2f",
+            "number": 129729,
+            "long": 114.169,
+            "lat": 22.319
+        },
+        {
+            "cityName": "\u53f0\u6e7e\u53f0\u5317",
+            "number": 213,
+            "long": 121.565,
+            "lat": 25.033
+        },
+        {
+            "countryName": "\u7f8e\u56fd",
+            "number": 69274,
+            "long": 264.287,
+            "lat": 37.09
+        }
+    ],
+    "foreign_cityData": [
+        {
+            "cityName": "\u4e2d\u56fd\u9999\u6e2f",
+            "number": 129729,
+            "long": 114.169,
+            "lat": 22.319
+        },
+        {
+            "cityName": "\u7f8e\u56fd\u6d1b\u6749\u77f6",
+            "number": 27145,
+            "long": 241.756,
+            "lat": 34.052
+        }
+    ],
+    "daliyCityData": [
+        {
+            "cityName": "\u7f8e\u56fd\u829d\u52a0\u54e5",
+            "number": 281,
+            "long": 272.37,
+            "lat": 41.878
+        },
+        {
+            "cityName": "\u53f0\u6e7e\u53f0\u5317",
+            "number": 213,
+            "long": 121.565,
+            "lat": 25.033
+        }
+       
+    ],
+    "domestic_cityData": [
+        {
+            "cityName": "\u9999\u6e2f",
+            "number": 129729,
+            "long": 114.169,
+            "lat": 22.319
+        },
+        {
+            "cityName": "\u53f0\u6e7e\u53f0\u5317",
+            "number": 5308,
+            "long": 121.565,
+            "lat": 25.033
+        }
+    ]
+}

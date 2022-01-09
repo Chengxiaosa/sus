@@ -1,0 +1,206 @@
+@keyframes moveb_l {
+  from{left:3.4rem;}
+  to{left:2.176rem;}
+}
+@keyframes moveb_r {
+    from{top:1.36rem;}
+  	to{top:7.48rem;}
+}
+@keyframes movea {
+  from{left:2.176rem;}
+  to{left:3.4rem;}
+}
+@keyframes moved {
+    from{top:1.904rem;}
+  	to{top:0px;}
+}
+@keyframes movec {
+  from{left:1.632rem;}
+  to{left:0px;}
+}
+@keyframes rightMove{
+    from{left:2.992rem;}
+  	to{left:3.4rem;}
+}
+@keyframes bottomMove{
+    from{top:0px;}
+  	to{top:4.76rem;}
+}
+.father1{
+	position: absolute;
+	left: 31%;
+	top:8%;
+	z-index: 99;
+}
+.father2{
+	position: absolute;
+	left: 31%;
+	top:8%;
+	z-index: 99;
+}
+.father3{
+	position: absolute;
+	left: 31%;
+	top:8%;
+	z-index: 99;
+}
+.father4{
+	position: absolute;
+	left: 40%;
+	top:75%;
+	z-index: 99;
+}
+.father5{
+	position: absolute;
+	left: 55%;
+	top:49%;
+	z-index: 99;
+}
+.moveson1 {
+	transform:rotate(40deg);
+	position: relative;
+	width: 20%;
+	border-radius: 0.068rem;
+	animation-name: rightMove, bottomMove;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+	position:relative;
+}
+.moveson2 {
+	position: relative;
+	width: 18%;
+	border-radius: 0.068rem;
+	animation-name: movea;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+	position:relative;
+}
+.moveson3 {
+	transform:rotate(120deg);
+	position: relative;
+	width: 19%;
+	border-radius: 0.068rem;
+	animation-name: moveb_l, moveb_r;
+    animation-duration: 1.8s;
+    animation-iteration-count: infinite;
+	position:relative;
+}
+.moveson4 {
+	transform:rotate(180deg);
+	position: relative;
+	width: 18%;
+	border-radius: 0.068rem;
+	animation-name: movec;
+    animation-duration: 1.8s;
+    animation-iteration-count: infinite;
+	position:relative;
+}
+.moveson5 {
+	transform:rotate(270deg);
+	position: relative;
+	width: 18%;
+	border-radius: 0.068rem;
+	animation-name: moved;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+	position:relative;
+}
+@keyframes animX{
+	  0% {left: 15%;}
+	100% {left: 70%;}
+}
+@keyframes animY{
+	  0% {top: 45%;}
+	100% {top: 70%;}
+}
+ @keyframes scale {
+    0% {transform: scale(0.9)}
+    50% {transform: scale(1)}
+    100% {transform: scale(0.9)}
+}
+.ball {
+	position: absolute;
+    font-size:0.2992rem;
+    width: 20%;
+	border-radius: 50%;
+	z-index: 99;
+	display:block;
+}
+.ball1 {
+    animation: 
+    animX 1s cubic-bezier(0.36, 0, 0.64, 1) -0.5s infinite alternate,
+    animY 1s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate,
+    scale 2s cubic-bezier(0.36, 0, 0.64, 1) 0s infinite alternate;
+ }
+
+.k{
+	margin-top: 0.136rem;
+	margin-bottom: 0.136rem;
+	transition: .5s all ease-in;
+	text-align: center;
+}
+.se{
+	position: relative;
+	font-size: 0.272rem;
+	background-color: #2274A5;
+	height: 30%;
+	z-index: 99;
+}
+.se:hover {
+    background: #00b5e5;
+}
+.se:focus {
+	filter: brightness(1.1);
+}
+.seed{
+	position: relative;
+	margin-top: 0.204rem;
+	transition: .5s all ease-in;
+}
+.seed1{
+	background-color:#2274A5;
+	color:#ECE8EF;
+	width:30%;
+	margin-right:0.068rem;
+	font-size: 0.272rem;
+	text-align:center;
+}
+.seed2{
+	background-color:darkgray;
+	color:#ECE8EF;
+	width:70%;
+	font-size: 0.2448rem;
+}
+.seed3{
+	display: flex;
+	margin-top: 2%;
+	margin-bottom: 2%;
+	/* margin: 0.0408rem 0.0272rem 0.0408rem 0.0272rem;  */
+}
+.paper1{
+	position: relative;
+
+    text-align: center;
+    width: 90%;
+    left:10%;
+}
+.text3{
+    font-size: 0.272rem;
+    color:#5CD0FD;
+    margin-top: 0.1088rem;
+    margin-bottom: 0.1088rem;
+}
+.text4{
+    font-size: 0.2448rem;
+    color: #ECE8EF;
+    margin-top: 0.1088rem;
+    margin-bottom: 0.1088rem;
+}
+.text5{
+	position: relative;
+    font-size: 0.272rem;
+    color:#5CD0FD;
+    margin-top: 0.0816rem;
+    margin-bottom: 0.1088rem;
+    left: 10%;
+}

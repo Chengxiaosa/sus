@@ -1,0 +1,34 @@
+/* .navigation
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 3.6%;
+    background-color: #3f6b77;
+    position: fixed;
+    height: 100%;
+    z-index: 99;
+}
+
+.navigation li a {
+    display: block;
+    color: white;
+    padding:77.9px 15px;
+    font-size: 18px;
+    text-decoration: none;
+    text-align: center;
+    border-style:solid;
+    border-width:2px;
+    border-color: #8ef0f8;
+}
+
+.navigation li a.active {
+    background-color: #6cb8c0;
+    color: white;
+}
+
+
+.navigation li a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+} */
