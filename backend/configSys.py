@@ -8,13 +8,20 @@ config = {
         'password': 'N0_fr@ud',
         'database': 'fraud_detection_v2'
     },
+    # 'mongo': {
+    #     'host': 'ml.a0ab.com',
+    #     'port': 27017,
+    #     'user': 'fraud',
+    #     'password': 'N0_fr@ud',
+    #     'database': 'fraud_detection'
+    # },
     'mongo': {
-        'host': 'ml.a0ab.com',
+        'host': '10.176.36.10',
         'port': 27017,
-        'user': 'fraud',
-        'password': 'N0_fr@ud',
-        'database': 'fraud_detection'
-    },
+        'user': 'mongo_domain_admin',
+        'password': 'mongo_domain_admin',
+        'database': 'auto_scripts'
+    },    
     'redis': {
         'port': 16379,
         'host': '10.176.36.25'

@@ -101,7 +101,7 @@ def judgeAll():
     domains = set()
     # select targets
     # 选择库中所有价值flag为0的
-    rows = db.fetch("select crawler_id, target_url,ip from fraud_crawler_sustainable where sus_flag = 2;")
+    rows = db.fetch("select crawler_id, target_url,ip from fraud_crawler_sustainable where sus_flag = 2 and web_status_code = 200;")
     rows_already = db.fetch("select target_url from fraud_crawler_sustainable where value_flag = 0 OR value_flag=1;")
     db.close()
     # 进行域名生成

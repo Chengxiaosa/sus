@@ -32,8 +32,8 @@ def generate_cmd(crawler_prepare):
     #         for url in crawler_prepare]
     return [['node',
              './fontend/src/crawler/page_crawler.js',
-             url]
-            for url in crawler_prepare]            
+             url,id]
+            for url,id in crawler_prepare]            
 
 
 def action(cmd):
@@ -41,16 +41,15 @@ def action(cmd):
     # print('run cmd: {}'.format(' '.join(cmd)))
     os.system(' '.join(cmd))
 
-
+# 应当传入域名和数据库id
 def crawler(domains, ips):
     crawler_prepare = []
-    for domain in domains:
-        crawler_prepare.append(domain)
-    for ip in ips:
-        crawler_prepare.append(ip)
+    for domain,id in domains:
+        crawler_prepare.append([domain,id])
+    for ip,id in ips:
+        crawler_prepare.append([domain,id])
 
     crawler_cmd = generate_cmd(crawler_prepare)
-
     with ThreadPoolExecutor(max_workers=5) as pool:
         pool.map(action, crawler_cmd)
     # pool = Pool(processes=5)
@@ -59,8 +58,13 @@ def crawler(domains, ips):
     # pool.join()
 
 
-'''
-for test
+
+
+
+
 if __name__ == '__main__':
-    crawler('https://www.556bl.com')
-'''
+    domains=list()
+    ips = list()
+    domains.append(["https://www.556bl.com",'111111'])
+    crawler(domains,ips)
+

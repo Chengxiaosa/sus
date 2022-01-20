@@ -3,6 +3,7 @@ from subprocess import Popen
 from multiprocessing import Pool
 import json
 import sys
+import logging
 sys.path.append("./backend")
 from configSys import config
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -13,7 +14,7 @@ FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 protocal = 'https'
 # ___________________________________________________
 def run_zgrab(input,flag):
-    list_path = Result_DIR+"/crawler/crawler_result/"+input+"/"
+    list_path = Result_DIR+"crawler/crawler_result/"+input+"/"
     print (list_path)
     # 接下来开始扫描80 端口和443端口
     option = '--port=443 --use-https' if protocal == 'https' else '--port=80'
@@ -32,15 +33,14 @@ def run_zgrab(input,flag):
         print("zgrab  boomPossible")
         cmd = 'ulimit -n 102400 && cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'boomPossible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'boom.json'
 
-    print(cmd)
     p = Popen(cmd,shell=True)
     # 等待子进程终止
     p.wait()
     p.kill()
 
 def run_zgrab_new(input):
-    list_path = Result_DIR+"/crawler/crawler_result/"+input+"/"
-    print (list_path)
+    list_path = Result_DIR+"crawler/crawler_result/"+input+"/"
+    logging.debug ("run_zgrab_new"+list_path)
     # 接下来开始扫描80 端口和443端口
     for i in range(2):
         if i == 0:
@@ -50,20 +50,22 @@ def run_zgrab_new(input):
             option = option = '--port=80 '
         # 拼接zgrab2的
         cmd = ''
-        print("zgrab Possible")
         # if i ==0:
         #     cmd = 'ulimit -n 102400 && cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'Possible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'.json'
         # else:
         #     cmd = 'ulimit -n 102400 && cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'Possible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'1.json'
         if i ==0:
+            logging.debug('zgrab-option'+option)            
             cmd = 'cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'Possible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'.json'
         else:
+            logging.debug('zgrab-option'+option)  
             cmd = 'cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'Possible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'1.json'        
-        print(cmd)
+
         p = Popen(cmd,shell=True)
         # 等待子进程终止
         p.wait()
         p.kill()
+        logging.debug('p.kill:'+str(i))          
  
 
 def read_result(input,flag):
@@ -78,21 +80,19 @@ def read_result(input,flag):
     elif flag ==4:
         result_file_path = result_path+protocal+'/'+str(input)+'boom.json'                
     result_file = open(result_file_path,"r",encoding='utf8')
-    print("read "+result_file_path)
+    logging.debug("read "+result_file_path)
     count=0
     while True:
         buffer=result_file.read(1024*8192)
         if not buffer:
             break
         count+=buffer.count('\n')
-    print(count)
     result_file.seek(0)
     for i in range(count):
         line = result_file.readline()
         line_result = json.loads(line)
         if line_result['data']['http']['result'] != {}:
             urls.add(line_result['domain'])
-    print('get ',len(urls),' in ',input,'.json')
     return urls    
 
 
@@ -105,21 +105,21 @@ def read_result_new(input):
         else:
             result_file_path = result_path+protocal+'/'+str(input)+'1.json'
         result_file = open(result_file_path,"r",encoding='utf8')
-        print("read "+result_file_path)
+        logging.debug("read "+result_file_path)
         count=0
         while True:
             buffer=result_file.read(1024*8192)
             if not buffer:
                 break
             count+=buffer.count('\n')
-        print(count)
         result_file.seek(0)
         for i in range(count):
             line = result_file.readline()
             line_result = json.loads(line)
             if line_result['data']['http']['result'] != {}:
                 urls.add(line_result['domain'])
-        print('get ',len(urls),' in ',input,'.json')
+        logging.debug("read_finish: "+str(i))                
+
     return urls    
 
 

@@ -18,8 +18,8 @@ ml_maxlen = 5000
 mul_maxlen = 20000
 
 
-def predict_x(X, correct_domains, error_domains, bin_model_path=FILE_DIR + "/models/bin_model_xxi",
-              mul_model_path=FILE_DIR + "/models/mul_model_vii"):
+def predict_x(X, correct_domains, error_domains, bin_model_path=FILE_DIR + "/models/bin_model_xxiiii",
+              mul_model_path=FILE_DIR + "/models/mul_model_viiii"):
 
     final_results = {}
     final_results.update({"error_domains": error_domains})
@@ -63,8 +63,8 @@ def predict_x(X, correct_domains, error_domains, bin_model_path=FILE_DIR + "/mod
 
     return final_results
 
-def predict_x_from_one(X, correct_domains, error_domains, bin_model_path=FILE_DIR + "/models/bin_model_xxi",
-              mul_model_path=FILE_DIR + "/models/mul_model_vii"):
+def predict_x_from_one(X, correct_domains, error_domains, bin_model_path=FILE_DIR + "/models/bin_model_xxiiii",
+              mul_model_path=FILE_DIR + "/models/mul_model_viiii"):
 
     final_results = {}
     final_results.update({"error_domains": error_domains})
@@ -84,6 +84,8 @@ def predict_x_from_one(X, correct_domains, error_domains, bin_model_path=FILE_DI
     uncertain_domains = []
 
     for i in range(len(X)):
+        print(bin_results[i][0] )
+        print(bin_results[i][1])
         if bin_results[i][0] >= 0.9:
             good_domains.append(correct_domains[i-1])
         elif bin_results[i][1] >= 0.8:
@@ -144,8 +146,11 @@ def get_vector_from_one(target_domain, tokenizer_path=FILE_DIR + "/keywords.json
     if os.path.isdir(filename):
         html_path = filename + "/page.html"
         vec = parse_html(tokenizer, html_path)
-        vectors.append(vec)
-        correct_domains.append(target_domain)
+        if len(vec) < 50:
+            error_domains.append(target_domain)
+        else:        
+            vectors.append(vec)
+            correct_domains.append(target_domain)
     else:
         error_domains.append(target_domain)
 

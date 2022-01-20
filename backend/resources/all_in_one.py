@@ -17,7 +17,6 @@ import sys
 def all_in_one(url):
     # fraud_input_domain = "https://www.556bl.com"
     fraud_input_domain = url
-    print(fraud_input_domain)
     all_domains = set()
     all_ips = set()
     count = 0
@@ -69,13 +68,10 @@ def all_in_one(url):
 
     # domains_from_subnet, ips_from_subnet = get_from_subnet_all_in_one(fraud_input_domain)
 
-    print(len(all_domains))
-    print(count)
-
+    logging.debug("finsh_all_in_one"+fraud_input_domain)
     FILE_DIR = os.path.dirname(os.path.abspath(__file__))
     rs = parse.urlparse(fraud_input_domain)
     rsp = rs.netloc or rs.path  
-    print(rsp)   
     dict = {
         'domains_from_cert': list(domains_from_cert), 
         'domains_from_dns': list(domains_from_dns), 
@@ -96,14 +92,12 @@ def all_in_one(url):
     # all_domains |= domains_from_dns
     # all_domains |= domains_from_subnet
     # all_domains |= domains_from_cert
-    # print(all_domains)
 
 # all_in_one()
 
 def all_in_one_cert(url):
     # fraud_input_domain = "https://www.556bl.com"
     fraud_input_domain = url
-    print(fraud_input_domain)
     all_domains = set()
     all_ips = set()
     count = 0
@@ -115,7 +109,6 @@ def all_in_one_cert(url):
     FILE_DIR = os.path.dirname(os.path.abspath(__file__))
     rs = parse.urlparse(fraud_input_domain)
     rsp = rs.netloc or rs.path  
-    print(rsp)   
     dict = {'domains_from_cert': list(domains_from_cert), }
     return dict
 
@@ -123,7 +116,7 @@ def all_in_one_cert(url):
 def all_in_one_DNS(url):
     # fraud_input_domain = "https://www.556bl.com"
     fraud_input_domain = url
-    print(fraud_input_domain)
+
     all_domains = set()
     all_ips = set()
     count = 0
@@ -136,13 +129,11 @@ def all_in_one_DNS(url):
     all_ips |= ips_from_dns
 
 
-    print(len(all_domains))
-    print(count)
 
     FILE_DIR = os.path.dirname(os.path.abspath(__file__))
     rs = parse.urlparse(fraud_input_domain)
     rsp = rs.netloc or rs.path  
-    print(rsp)   
+ 
     dict = {
         'domains_from_dns': list(domains_from_dns), 
         "ips_from_dns": list(ips_from_dns),
@@ -155,7 +146,7 @@ def all_in_one_DNS(url):
 def all_in_one_subnet(url):
     # fraud_input_domain = "https://www.556bl.com"
     fraud_input_domain = url
-    print(fraud_input_domain)
+
     all_domains = set()
     all_ips = set()
     count = 0
@@ -170,13 +161,12 @@ def all_in_one_subnet(url):
 
     # domains_from_subnet, ips_from_subnet = get_from_subnet_all_in_one(fraud_input_domain)
 
-    print(len(all_domains))
-    print(count)
+
 
     FILE_DIR = os.path.dirname(os.path.abspath(__file__))
     rs = parse.urlparse(fraud_input_domain)
     rsp = rs.netloc or rs.path  
-    print(rsp)   
+
     dict = {
         "domains_from_subnet": list(domains_from_subnet),
         "ips_from_subnet": list(ips_from_subnet),}
@@ -186,7 +176,7 @@ def all_in_one_subnet(url):
 def all_in_one_BOOM(url):
     # fraud_input_domain = "https://www.556bl.com"
     fraud_input_domain = url
-    print(fraud_input_domain)
+
     all_domains = set()
     all_ips = set()
     count = 0
@@ -199,13 +189,12 @@ def all_in_one_BOOM(url):
 
     # domains_from_subnet, ips_from_subnet = get_from_subnet_all_in_one(fraud_input_domain)
 
-    print(len(all_domains))
-    print(count)
+
 
     FILE_DIR = os.path.dirname(os.path.abspath(__file__))
     rs = parse.urlparse(fraud_input_domain)
     rsp = rs.netloc or rs.path  
-    print(rsp)   
+
     dict = {
         "domains_from_boom": list(domains_from_boom),
         }

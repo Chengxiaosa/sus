@@ -47,10 +47,12 @@ db = DB()
 # 这个many用不到
 # init_sql_query = 'UPDATE fraud_crawler_sustainable set target_url=%s, task_create_time=now() where crawler_id = %s;'
 # db.executemany(init_sql_query, csv_domains)
+crawler_id = 0
 insert_sqls = []
 for data in csv_domains:
     cluster_id = cluster_id +1
-    insert_sqls.append('insert into fraud_crawler_sustainable (crawler_id,target_url,task_create_time,value_flag,cluster_id) values ("{}","{}",now(),0,{});'.format(data[1],data[0],cluster_id))
+    crawler_id =  crawler_id +1 
+    insert_sqls.append('insert into fraud_crawler_sustainable_test (crawler_id,target_url,task_create_time,value_flag,cluster_id) values ("{}","{}",now(),0,{});'.format(crawler_id,data[0],cluster_id))
 print(len(insert_sqls))
 db.execute(insert_sqls)
 db.close()

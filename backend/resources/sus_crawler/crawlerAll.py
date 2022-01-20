@@ -24,11 +24,11 @@ def crawlerAll():
     crawlerAll_flag = 1
     # select targets
     # 选择库中所有价值flag为0的
-    rows = db.fetch("select crawler_id, target_url from fraud_crawler_sustainable where sus_flag = 1 ;")
+    rows = db.fetch("select crawler_id, target_url from fraud_crawler_sustainable_test where sus_flag = 1 ;")
     db.close()    
     # 进行域名生成
     # extract domains
-    tmp = set()    
+    tmp = list()    
     insert_sqls = [] 
     num = 0 
     try:   
@@ -36,11 +36,11 @@ def crawlerAll():
         for crawler_id,target_url in rows:
             num = num+1
             # 进行动态爬虫
-            tmp.add(target_url)
-            insert_sqls.append( 'UPDATE fraud_crawler_sustainable set sus_flag=2  where crawler_id ="{}";'.format(crawler_id))      
-            if num >20 :
-                crawlerAll_flag = 0 
-                break
+            tmp.append([target_url,crawler_id])
+            insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=2  where crawler_id ="{}";'.format(crawler_id))      
+            # if num >20 :
+            #     crawlerAll_flag = 0 
+            #     break
         crawler(tmp, set())           
         # 结束完了之后 将 状态为1 设置为状态为2
 

@@ -26,7 +26,7 @@ class Crawler {
             await page.setExtraHTTPHeaders({
                 'Accept-Language': 'zh-CN,zh;q=0.9,zh-TW;q=0.8,en;q=0.7'
             });
-
+            const urlname = url
             if (!url.startsWith('http://') || !url.startsWith('https://') ) {
                 if(flag == 0){
                     url = 'https://' + url
@@ -35,7 +35,6 @@ class Crawler {
                 }
                 
             } 
-
             
             let updateSQL;
             try {
@@ -55,6 +54,7 @@ class Crawler {
 
                 await page.waitForTimeout(5000);
 
+                // const dir = `${this.baseOutputDir}/${urlname}`;
                 const dir = `${this.baseOutputDir}/${id}`;
 
                 if(!existsSync(dir)) {
@@ -81,8 +81,7 @@ class Crawler {
                 const parser = new Parser({});
                 parser.parse(data);
 
-                updateSQL = `update fraud_crawler_event set web_status_code=${status}, task_finish_time='${timestamp()}' where crawler_id=${id};`;
-
+                updateSQL = `update fraud_crawler_sustainable_test set web_status_code=${status}, task_finish_time='${timestamp()}' where crawler_id='${id}';`;
                 await fs.writeFile(`${dir}/page.mhtml`, data);
 
                 const array = parser.spit();
@@ -112,7 +111,11 @@ class Crawler {
                     errorType = message;
                 }
 
-                updateSQL = `update fraud_crawler_event set web_status_code=-1, error='${errorType}', task_finish_time='${timestamp()}' where crawler_id=${id};`;
+                updateSQL = `update fraud_crawler_sustainable_test set web_status_code=-1, sus_flag = -5 ,error='${errorType}', task_finish_time='${timestamp()}' where crawler_id='${id}';`;
+                const database = this.db;
+                console.log(updateSQL)
+                await database.update(updateSQL);
+                await page.close();
                 if(message){
                     return('no way')
                 }
@@ -120,7 +123,8 @@ class Crawler {
 
 
             const database = this.db;
-            // await database.update(updateSQL);
+            console.log(updateSQL)
+            await database.update(updateSQL);
             await page.close();
 
 
@@ -136,14 +140,14 @@ class Crawler {
 
 (async ()=> {
     const argv = process.argv.splice(2);
-    if (!argv || argv.length !== 1) {
+    if (!argv || argv.length !== 2) {
         console.log('Parameter error!');
         process.exit(0);
     }
     const crawler = await new Crawler(puppeteer.devices['iPhone X']);
 
-    // const db = await new DB();
-    // crawler.db = db;
+    const db = await new DB();
+    crawler.db = db;
 
 
     // const rows = await db.fetchFromRedis('fraud_crawler', 1000);
@@ -156,15 +160,16 @@ class Crawler {
     url = argv[0]
     // console.log(url)
     let falseMessage = ''
-    falseMessage = await crawler.newCrawlerTab({id:argv[0],url: argv[0]},0);
+    falseMessage = await crawler.newCrawlerTab({id:argv[1],url: argv[0]},0);
     await crawler.close();
+    const crawler1 = await new Crawler(puppeteer.devices['iPhone X']);
+    crawler1.db = db;
     if(falseMessage == 'no way'){
-
-        falseMessage = await crawler.newCrawlerTab({id:argv[0],url: argv[0]},1);
-        await crawler.close();
+        falseMessage = await crawler1.newCrawlerTab({id:argv[1],url: argv[0]},1);
+        crawler1.close();
     }
     
-    // await db.close();
+    await db.close();
 
 
     process.exit(0);

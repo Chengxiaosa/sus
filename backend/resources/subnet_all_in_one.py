@@ -2,12 +2,28 @@ import json, requests
 
 import dns.resolver
 from urllib import parse
+import datetime
 dns_resolver = dns.resolver.Resolver()
 dns_resolver.nameservers = ['1.1.1.1', '8.8.8.8', '114.114.114.114', '223.5.5.5', '223.6.6.6']
-
+import sys
+sys.path.append("./backend")
+from db import DB
 from collections import Counter
 # 根据ip，使用pdns技术，获取其他相关dns
+
+
+
+
 def get_domain_from_secrank(ip):
+    # 先查表 表里没有的话 再发送请求
+    db = DB()    
+    mongo_db = db.get_mongo()
+    auto_scripts = mongo_db['auto_scripts']
+    domain_from_subnet = auto_scripts['domain_from_subnet']
+    rows = domain_from_subnet.find({"ip": ip})    
+
+    for item in rows:
+        return set(item['domains']),set()
     url = f"https://api.secrank.cn/flint/rdata/{ip}/28"
 
     headers = {'fdp-token': '02cae0198cb00f3e2ffc3a4b3d1a9e8e'}
@@ -23,7 +39,7 @@ def get_domain_from_secrank(ip):
             domains.add(item['rrname'])
         item_ip = item['rdata'].strip(';')
         ips.add(item_ip)
-    
+    domain_from_subnet.insert_one({"ip": ip, "domains":list(domains), "datetime": datetime.datetime.now()})    
     return domains, ips
 
 class Slash24:
@@ -106,6 +122,16 @@ def get_from_subnet_all_in_one(fraud_input_domain):
         ips |= set(possible_ips)
 
         for ip in ips:
+            i = 15
+            parts = ip.split('.')
+            prefixm = '.'.join(parts[:3:])
+            k = int(parts[-1])            
+            while True:
+                if  k > i:
+                    i  = i+ 16
+                else:
+                    ip = '{}.{}'.format(prefixm, i) 
+                    break
             newdomains, newips = get_domain_from_secrank(ip)
             domains |= newdomains
             # ips |= newips
@@ -119,3 +145,7 @@ def get_from_subnet_all_in_one(fraud_input_domain):
     if len(ips) > 20:
         ips = set(list(ips)[0:20])
     return domains, ips
+
+if __name__ == "__main__":
+    fraud_input_domain = "www.baidu.com"    
+    domains, ips = get_from_subnet_all_in_one(fraud_input_domain)

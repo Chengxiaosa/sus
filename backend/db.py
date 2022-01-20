@@ -19,7 +19,7 @@ class DB:
         if not hasattr(self, '_mongo') or self._mongo == None:
             mongo_config = {k:urllib.parse.quote(v) if isinstance(v, str) else v for k, v in config.items()}
 
-            uri = 'mongodb://{user}:{password}@{host}:{port}/{database}'.format(**mongo_config)
+            uri = 'mongodb://{user}:{password}@{host}:{port}'.format(**mongo_config)
         
             self._mongo = MongoClient(uri)
 

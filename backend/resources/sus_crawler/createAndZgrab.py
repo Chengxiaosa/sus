@@ -1,4 +1,7 @@
 
+from cmath import log
+from concurrent.futures import ThreadPoolExecutor
+from multiprocessing.dummy import Pool as ThreadPool
 import csv 
 import uuid
 import sys
@@ -45,6 +48,21 @@ logger.addHandler(fileHandler)
     # 对所有状态为2的进行判断 
     # 如果是爬虫失败的情况设置成-1
     # 如果是
+# 应该执行 什么呢 多线程的插入IP
+def insertAction(domain,fatherID,clusterID):
+    insert_sqls = []    
+    uid = str(uuid.uuid4())
+    suid = ''.join(uid.split('-'))
+    # 入库的时候需要得到IP 
+    ip = getIP(domain)
+    insert_sqls.append('insert into fraud_crawler_sustainable (crawler_id,target_url,task_create_time,sus_flag,father_id,ip,cluster_id) values ("{}","{}",now(),1,"{}","{}",{});'.format(suid,domain,fatherID,ip,clusterID))    
+    db1 = DB()
+    db1.execute(insert_sqls)          
+    db1.close()     
+    logger.debug("更新数据库状态执行为1")     
+def startInsertAction(z):
+    insertAction(z[0],z[1],z[2])
+
 
 def createAndZgrab():
     db = DB()
@@ -64,7 +82,7 @@ def createAndZgrab():
         # if target_url.startswith('https'):
         #  domains |= extract_https_domain(crawler_id)
         # 先对他进行一下爬取 
-        tmp = set()
+        tmp = list()
         # 1存的是单个的
         update_sqls.append(( 'UPDATE fraud_crawler_sustainable set value_flag=1  where crawler_id ="{}";'.format(crawler_id)))
         update_sqls1= []
@@ -72,9 +90,8 @@ def createAndZgrab():
         rs = parse.urlparse(target_url)
         # 这里实现的是一个避免重复生成的过程
         thisDomain = rs.netloc or rs.path
-        print(thisDomain)
 
-        tmp.add(thisDomain)
+        tmp.append([thisDomain,crawler_id])
         crawler(tmp, set()) 
         list_path = Result_DIR+'/crawler/crawler_result/'+thisDomain+'/'
         # 判断爬虫是否成功：    
@@ -100,23 +117,36 @@ def createAndZgrab():
                                 fd.write('\n')     
                 fd.close() 
                 # zgrab进行扫描
-                run_zgrab_new(thisDomain)             
-                resultUrls = read_result_new(thisDomain)
-                # 进行 zgrab扫描
+                logging.debug("run_zgrab_new:"+thisDomain)
+                run_zgrab_new(thisDomain)              
+                resultUrls = read_result_new(thisDomain) 
+                # 进行 zgrab扫描 
                 # 先只扫描了443端口
-                for i in resultUrls:
-                    uid = str(uuid.uuid4())
-                    suid = ''.join(uid.split('-'))
-                    # 入库的时候需要得到IP 
-                    ip = getIP(i)
-                    insert_sqls.append('insert into fraud_crawler_sustainable (crawler_id,target_url,task_create_time,sus_flag,father_id,ip,cluster_id) values ("{}","{}",now(),1,"{}","{}",{});'.format(suid,i,crawler_id,ip,cluster_id))
-                    # db.execute(insert_sqls)          
-                logging.debug(len(insert_sqls))
-                # 打包将原有的value_flag更新掉
-                db = DB()
-                db.execute(insert_sqls)          
-                db.close() 
-                logger.debug("更新数据库状态执行为1") 
+                logging.debug("开始生成插入语句，长度:"+str(len(resultUrls)))
+                # 将其拼成【(a,b,c)】的样子
+                actionList = list()
+                for item in resultUrls:
+                    actionList.append((item,crawler_id,cluster_id))                 
+                # with ThreadPoolExecutor(max_workers=5) as pool:
+                #     pool.map(insertAction, actionList)       
+                
+                pool = ThreadPool(4)
+                pool.map(startInsertAction, actionList) 
+                pool.close()
+                pool.join()
+                # for i in resultUrls:
+                #     uid = str(uuid.uuid4())
+                #     suid = ''.join(uid.split('-'))
+                #     # 入库的时候需要得到IP 
+                #     ip = getIP(i)
+                #     insert_sqls.append('insert into fraud_crawler_sustainable (crawler_id,target_url,task_create_time,sus_flag,father_id,ip,cluster_id) values ("{}","{}",now(),1,"{}","{}",{});'.format(suid,i,crawler_id,ip,cluster_id))
+                #     # db.execute(insert_sqls)          
+                # logging.debug(len(insert_sqls))
+                # # 打包将原有的value_flag更新掉
+                # db = DB()
+                # db.execute(insert_sqls)          
+                # db.close() 
+                
                 db.execute(update_sqls1)      
                 logger.debug("更新数据库状态value为1")                                       
             except Exception as e:

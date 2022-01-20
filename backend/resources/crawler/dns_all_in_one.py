@@ -54,6 +54,16 @@ def get_from_dns_all_in_one(fraud_input_domain):
     domains = set()
     ips = set()
     for ip in A:
+        i = 15
+        parts = ip.split('.')
+        prefixm = '.'.join(parts[:3:])
+        k = int(parts[-1])            
+        while True:
+            if  k > i:
+                i  = i+ 16
+            else:
+                ip = '{}.{}'.format(prefixm, i) 
+                break        
         newdomains, newips = get_domain_from_secrank(ip)
         ips |= newips
         domains |= newdomains
