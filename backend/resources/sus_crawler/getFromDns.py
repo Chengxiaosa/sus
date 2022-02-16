@@ -2,7 +2,7 @@ import dns.resolver
 import requests, json
 from urllib import parse
 dns_resolver = dns.resolver.Resolver()
-dns_resolver.nameservers = ['1.1.1.1', '8.8.8.8', '114.114.114.114', '223.5.5.5', '223.6.6.6']
+dns_resolver.nameservers = ['114.114.114.114', '223.5.5.5', '223.6.6.6']
 
 # 根据已有域名（确认是诈骗网站），解析ip地址
 def query_domain(domain):

@@ -7,5 +7,5 @@ if __name__ == '__main__':
     print("完成createAndZgrab()")
     crawlerAll()
     print("完成crawlerAll")
-    judgeAll()
-    print("完成judgeAll()")
+    # judgeAll()
+    # print("完成judgeAll()")

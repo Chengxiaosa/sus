@@ -1,12 +1,18 @@
 
 from cmath import log
 from concurrent.futures import ThreadPoolExecutor
-from multiprocessing.dummy import Pool as ThreadPool
-import csv 
+# from multiprocessing.dummy import Pool as ThreadPool
+import multiprocessing as mp
+import csv
+from multiprocessing import pool 
 import uuid
 import sys
+import time
 import os
-import logging
+
+from sklearn.metrics import jaccard_score
+sys.path.append("./backend/resources/sus_crawler")
+from log_sus import Log
 from urllib import parse
 import traceback
 from getFromDns import getIP
@@ -20,35 +26,32 @@ from zgrabP import run_zgrab,read_result_new, run_zgrab_new
 
 Result_DIR = config['result_dir']
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
-logging.basicConfig(filename='std.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s',level=logging.DEBUG)
 
-logger=logging.getLogger() 
-
-#Now we are going to Set the threshold of logger to DEBUG 
-logger.setLevel(logging.DEBUG)
-# 终端Handler
-consoleHandler = logging.StreamHandler()
-consoleHandler.setLevel(logging.DEBUG)
-# 文件Handler
-fileHandler = logging.FileHandler('log.log', mode='w', encoding='UTF-8')
-fileHandler.setLevel(logging.NOTSET)
-# Formatter
-formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-consoleHandler.setFormatter(formatter)
-fileHandler.setFormatter(formatter)
-# 添加到Logger中
-logger.addHandler(consoleHandler)
-logger.addHandler(fileHandler)
-    # 处理结束后将其价值设置为1
-    # 进行域名生成对其分配UUID 
-    # 对生成域名进行动态扫描找到80端口和443端口
-    # 对生成的域名进行入库 状态设置成1 
-    #  对所有状态为1 的进行动态扫描
-    # 状态变成2 
-    # 对所有状态为2的进行判断 
-    # 如果是爬虫失败的情况设置成-1
-    # 如果是
-# 应该执行 什么呢 多线程的插入IP
+logger=Log()
+class  OP():
+    def __init__(self) :
+        self.manager = mp.Manager
+        # 为什么这里一开始声明的时候没有括号 使用的时候要加括号？
+        self.actionList = self.manager().list()
+        # 下面这里应该传入crawler_id进来
+    def joiningList(self,suid,domain,father_id,cluster_id):
+        # time.sleep(0.1)
+        # 入库的时候需要得到IP 
+        ip = getIP(domain)                    
+        self.actionList.append((suid,domain,father_id,ip,cluster_id))        
+    def flow(self,resultUrls,father_id,cluster_id):
+        pool = mp.Pool(40)
+        # 这一方法和
+        # 第一个是id，第二个是url
+        tasks_lst = [ (resultUrl[0],resultUrl[1],father_id,cluster_id)for resultUrl in resultUrls]   
+        pool.starmap(self.joiningList, tasks_lst)        
+        pool.close()
+        pool.join()
+def insert_result(results,flag=False):
+    db = DB()
+    original_sql_query = 'insert into fraud_crawler_sustainable (crawler_id,target_url,task_create_time,sus_flag,father_id,ip,cluster_id) values (%s,%s,now(),1,%s,%s,%s);'
+    db.executemany(original_sql_query, results)
+    db.close()
 def insertAction(domain,fatherID,clusterID):
     insert_sqls = []    
     uid = str(uuid.uuid4())
@@ -59,7 +62,6 @@ def insertAction(domain,fatherID,clusterID):
     db1 = DB()
     db1.execute(insert_sqls)          
     db1.close()     
-    logger.debug("更新数据库状态执行为1")     
 def startInsertAction(z):
     insertAction(z[0],z[1],z[2])
 
@@ -70,12 +72,15 @@ def createAndZgrab():
     # select targets
     # 选择库中所有价值flag为0的
     rows = db.fetch("select crawler_id, target_url,cluster_id from fraud_crawler_sustainable where value_flag = 0  ORDER BY task_create_time ASC;")
+
     db.close()
     # 进行域名生成
     # extract domains
     update_sqls = []
     rows_num= 0 
-    for crawler_id, target_url ,cluster_id in rows:
+    for crawler_id_int, target_url ,cluster_id in rows:
+        crawler_id = str(crawler_id_int)
+        logger.info('当前处理的crawler_id: '+str(crawler_id))        
         rows_num = rows_num + 1 
         if rows_num == 5:
             break
@@ -92,14 +97,16 @@ def createAndZgrab():
         thisDomain = rs.netloc or rs.path
 
         tmp.append([thisDomain,crawler_id])
-        crawler(tmp, set()) 
-        list_path = Result_DIR+'/crawler/crawler_result/'+thisDomain+'/'
+        # logger.info('开启爬虫crawler_id: '+crawler_id)               
+
+        # # crawler(tmp, set()) 
+        # logger.info('结束爬虫crawler_id: '+crawler_id)              
+        list_path = Result_DIR+'/crawler/crawler_result/'+crawler_id+'/'
         # 判断爬虫是否成功：    
         if not os.path.isdir(list_path):     
             db = DB()
             db.execute(update_sqls1)          
             db.close() 
-            logger.debug("更新数据库状态执行为1")             
             continue
         else:   
             insert_sqls = []
@@ -117,42 +124,42 @@ def createAndZgrab():
                                 fd.write('\n')     
                 fd.close() 
                 # zgrab进行扫描
-                logging.debug("run_zgrab_new:"+thisDomain)
-                run_zgrab_new(thisDomain)              
-                resultUrls = read_result_new(thisDomain) 
-                # 进行 zgrab扫描 
-                # 先只扫描了443端口
-                logging.debug("开始生成插入语句，长度:"+str(len(resultUrls)))
-                # 将其拼成【(a,b,c)】的样子
-                actionList = list()
-                for item in resultUrls:
-                    actionList.append((item,crawler_id,cluster_id))                 
+                logger.debug("run_zgrab_new:"+thisDomain)
+                run_zgrab_new(thisDomain,crawler_id)              
+                urls443,urls80 = read_result_new(thisDomain,crawler_id) 
+                resultUrls443 = ['https://'+i for i in list(urls443)]
+                resultUrls80 = ['http://'+i for i in list(urls80)]                
+                resultUrlsList =  resultUrls443+resultUrls80
+                resultUrls = set(resultUrlsList)
+                # 先获得数据库中最大的ID 
+                db = DB()
+                rows_max = db.fetch("select Max(crawler_id) crawler_id from fraud_crawler_sustainable;")                
+                maxid = rows_max[0][0]
+                db.close()                
+                # 在这里分配ID号
+                resultUrls = list()
+                result_num = 0 
+                for item in resultUrlsList:
+                    result_num= result_num+1
+                    item_crawler_id = maxid +result_num
+                    item_url = item
+                    resultUrls.append((item_crawler_id,item_url))
+                logger.info("开始生成插入语句，长度:"+str(len(resultUrls)))
+                op = OP()
+                op.flow(resultUrls,crawler_id,cluster_id)
+                logger.info("完成生成插入语句，长度:"+str(len(resultUrls)))                                  
                 # with ThreadPoolExecutor(max_workers=5) as pool:
                 #     pool.map(insertAction, actionList)       
-                
-                pool = ThreadPool(4)
-                pool.map(startInsertAction, actionList) 
-                pool.close()
-                pool.join()
-                # for i in resultUrls:
-                #     uid = str(uuid.uuid4())
-                #     suid = ''.join(uid.split('-'))
-                #     # 入库的时候需要得到IP 
-                #     ip = getIP(i)
-                #     insert_sqls.append('insert into fraud_crawler_sustainable (crawler_id,target_url,task_create_time,sus_flag,father_id,ip,cluster_id) values ("{}","{}",now(),1,"{}","{}",{});'.format(suid,i,crawler_id,ip,cluster_id))
-                #     # db.execute(insert_sqls)          
-                # logging.debug(len(insert_sqls))
-                # # 打包将原有的value_flag更新掉
-                # db = DB()
-                # db.execute(insert_sqls)          
-                # db.close() 
-                
+                logger.info("开始执行插入语句:"+str(len(resultUrls)))    
+                insert_result(op.actionList)          
+                logger.info("完成执行插入语句:"+str(len(resultUrls)))                                  
+                db = DB()                
                 db.execute(update_sqls1)      
-                logger.debug("更新数据库状态value为1")                                       
+                db.close()                
+                                                      
             except Exception as e:
                 logger.debug("异常")
                 logger.debug(sys.exc_info()[0:2]) # 打印错误类型，错误值
-
                 logger.debug(traceback.extract_tb(sys.exc_info()[2])) #出错位置
     db = DB()
     db.execute(update_sqls)      

@@ -1,0 +1,193 @@
+[2022-02-16 12:08:41] [DEBUG] - 更新数据库状态为2成功,长度为1
+[2022-02-16 12:51:22] [INFO] - 开始运行生成相关衍生
+[2022-02-16 12:51:22] [INFO] - 当前处理的crawler_id: 03e784e4991542f4a77aa28cc22a7faa
+[2022-02-16 12:51:32] [DEBUG] - run_zgrab_new:www.lanbabenma.com
+[2022-02-16 12:51:32] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/www.lanbabenma.com/
+[2022-02-16 12:51:32] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 12:51:32] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 12:51:32] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/www.lanbabenma.com443.json
+[2022-02-16 12:51:32] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/www.lanbabenma.com80.json
+[2022-02-16 12:51:32] [INFO] - 开始生成插入语句，长度:0
+[2022-02-16 12:51:32] [INFO] - 完成生成插入语句，长度:0
+[2022-02-16 12:51:32] [INFO] - 开始执行插入语句:0
+[2022-02-16 12:51:32] [INFO] - 完成执行插入语句:0
+[2022-02-16 12:51:32] [INFO] - 当前处理的crawler_id: 127c41322b4e49869c60c0d5a2aeafbc
+[2022-02-16 12:51:44] [DEBUG] - run_zgrab_new:www.imyelie.com
+[2022-02-16 12:51:44] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/www.imyelie.com/
+[2022-02-16 12:51:44] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 12:51:44] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 12:51:44] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/www.imyelie.com443.json
+[2022-02-16 12:51:44] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/www.imyelie.com80.json
+[2022-02-16 12:51:44] [INFO] - 开始生成插入语句，长度:0
+[2022-02-16 12:51:44] [INFO] - 完成生成插入语句，长度:0
+[2022-02-16 12:51:44] [INFO] - 开始执行插入语句:0
+[2022-02-16 12:51:44] [INFO] - 完成执行插入语句:0
+[2022-02-16 12:51:44] [INFO] - 当前处理的crawler_id: 1a2efee19fae48e08a1dada25925ee42
+[2022-02-16 12:51:47] [DEBUG] - run_zgrab_new:h.loocho.xyZ
+[2022-02-16 12:51:47] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/h.loocho.xyZ/
+[2022-02-16 12:51:47] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 12:51:47] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 12:51:47] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/h.loocho.xyZ443.json
+[2022-02-16 12:51:47] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/h.loocho.xyZ80.json
+[2022-02-16 12:51:47] [INFO] - 开始生成插入语句，长度:0
+[2022-02-16 12:51:48] [INFO] - 完成生成插入语句，长度:0
+[2022-02-16 12:51:48] [INFO] - 开始执行插入语句:0
+[2022-02-16 12:51:48] [INFO] - 完成执行插入语句:0
+[2022-02-16 12:51:48] [INFO] - 当前处理的crawler_id: 243b9fd25a404a929f5f1afbd6df2f44
+[2022-02-16 12:51:51] [DEBUG] - run_zgrab_new:yszsc32.com
+[2022-02-16 12:51:51] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/yszsc32.com/
+[2022-02-16 12:51:51] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 12:52:51] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 13:00:02] [INFO] - 开始运行生成相关衍生
+[2022-02-16 13:00:02] [INFO] - 当前处理的crawler_id: 243b9fd25a404a929f5f1afbd6df2f44
+[2022-02-16 13:00:06] [DEBUG] - run_zgrab_new:yszsc32.com
+[2022-02-16 13:00:06] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/243b9fd25a404a929f5f1afbd6df2f44/
+[2022-02-16 13:00:06] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 13:01:06] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 13:02:06] [DEBUG] - 异常
+[2022-02-16 13:02:06] [DEBUG] - (<class 'TypeError'>, TypeError("read_result_new() missing 1 required positional argument: 'crawler_id'",))
+[2022-02-16 13:02:06] [DEBUG] - [<FrameSummary file ./backend/resources/sus_crawler/createAndZgrab.py, line 129 in createAndZgrab>]
+[2022-02-16 13:02:06] [INFO] - 当前处理的crawler_id: 277c0cfe6f514e75a1f988c947ef8bed
+[2022-02-16 13:02:09] [DEBUG] - run_zgrab_new:ase.pmzqef.world
+[2022-02-16 13:02:09] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/277c0cfe6f514e75a1f988c947ef8bed/
+[2022-02-16 13:02:09] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 13:02:50] [INFO] - 开始运行生成相关衍生
+[2022-02-16 13:02:50] [INFO] - 当前处理的crawler_id: 243b9fd25a404a929f5f1afbd6df2f44
+[2022-02-16 13:02:50] [DEBUG] - run_zgrab_new:yszsc32.com
+[2022-02-16 13:02:50] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/243b9fd25a404a929f5f1afbd6df2f44/
+[2022-02-16 13:02:50] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 13:03:50] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 13:04:50] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/243b9fd25a404a929f5f1afbd6df2f44443.json
+[2022-02-16 13:04:50] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/243b9fd25a404a929f5f1afbd6df2f4480.json
+[2022-02-16 13:04:50] [INFO] - 开始生成插入语句，长度:60
+[2022-02-16 13:05:01] [INFO] - 完成生成插入语句，长度:60
+[2022-02-16 13:05:01] [INFO] - 开始执行插入语句:60
+[2022-02-16 13:05:01] [INFO] - 完成执行插入语句:60
+[2022-02-16 13:05:01] [INFO] - 当前处理的crawler_id: 277c0cfe6f514e75a1f988c947ef8bed
+[2022-02-16 13:05:07] [DEBUG] - run_zgrab_new:ase.pmzqef.world
+[2022-02-16 13:05:07] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/277c0cfe6f514e75a1f988c947ef8bed/
+[2022-02-16 13:05:07] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 13:06:07] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 13:07:07] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/277c0cfe6f514e75a1f988c947ef8bed443.json
+[2022-02-16 13:07:07] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/277c0cfe6f514e75a1f988c947ef8bed80.json
+[2022-02-16 13:07:07] [INFO] - 开始生成插入语句，长度:125
+[2022-02-16 13:07:33] [INFO] - 完成生成插入语句，长度:125
+[2022-02-16 13:07:33] [INFO] - 开始执行插入语句:125
+[2022-02-16 13:07:33] [INFO] - 完成执行插入语句:125
+[2022-02-16 13:07:33] [INFO] - 当前处理的crawler_id: 27a4f36feeb7433fa667b73f59837ed5
+[2022-02-16 13:07:35] [DEBUG] - run_zgrab_new:bx682.com
+[2022-02-16 13:07:35] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/27a4f36feeb7433fa667b73f59837ed5/
+[2022-02-16 13:07:35] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 13:08:35] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 13:09:35] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/27a4f36feeb7433fa667b73f59837ed5443.json
+[2022-02-16 13:09:35] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/27a4f36feeb7433fa667b73f59837ed580.json
+[2022-02-16 13:09:35] [INFO] - 开始生成插入语句，长度:87
+[2022-02-16 13:09:51] [INFO] - 完成生成插入语句，长度:87
+[2022-02-16 13:09:51] [INFO] - 开始执行插入语句:87
+[2022-02-16 13:09:51] [INFO] - 完成执行插入语句:87
+[2022-02-16 13:09:51] [INFO] - 当前处理的crawler_id: 2928fa3138c84589a5cd47a22844d784
+[2022-02-16 13:09:58] [DEBUG] - run_zgrab_new:GSS2f9dW.imedmax.cn
+[2022-02-16 13:09:58] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/2928fa3138c84589a5cd47a22844d784/
+[2022-02-16 13:09:58] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 13:10:58] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 13:11:58] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/2928fa3138c84589a5cd47a22844d784443.json
+[2022-02-16 13:11:58] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/2928fa3138c84589a5cd47a22844d78480.json
+[2022-02-16 13:11:58] [INFO] - 开始生成插入语句，长度:67
+[2022-02-16 13:12:05] [INFO] - 完成生成插入语句，长度:67
+[2022-02-16 13:12:05] [INFO] - 开始执行插入语句:67
+[2022-02-16 13:12:05] [INFO] - 完成执行插入语句:67
+[2022-02-16 13:12:05] [INFO] - 当前处理的crawler_id: 2b54159970334254afbbc1d30f85f3da
+[2022-02-16 13:12:05] [DEBUG] - 更新数据库状态value为1
+[2022-02-16 13:12:05] [INFO] - 完成运行生成相关衍生
+[2022-02-16 13:12:05] [INFO] - 开始crawlerAll
+[2022-02-16 13:28:05] [DEBUG] - 更新数据库状态为2成功,长度为339
+[2022-02-16 13:28:05] [INFO] - 完成crawlerAll
+[2022-02-16 13:28:05] [INFO] - 开始运行生成相关衍生
+[2022-02-16 13:28:05] [INFO] - 当前处理的crawler_id: 2b54159970334254afbbc1d30f85f3da
+[2022-02-16 13:28:10] [DEBUG] - run_zgrab_new:rs.NSQpMC.guru
+[2022-02-16 13:28:10] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/2b54159970334254afbbc1d30f85f3da/
+[2022-02-16 13:28:10] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 13:29:10] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 13:35:16] [DEBUG] - 更新数据库状态为2成功,长度为1
+[2022-02-16 15:37:18] [INFO] - 当前处理的crawler_id: 14
+[2022-02-16 15:39:45] [INFO] - 当前处理的crawler_id: 14
+[2022-02-16 15:39:48] [DEBUG] - run_zgrab_new:h.loocho.xyZ
+[2022-02-16 15:39:48] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/14/
+[2022-02-16 15:39:48] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 15:40:48] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 15:41:48] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/14443.json
+[2022-02-16 15:41:48] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/1480.json
+[2022-02-16 15:42:22] [INFO] - 开始生成插入语句，长度:63
+[2022-02-16 15:43:35] [INFO] - 完成生成插入语句，长度:63
+[2022-02-16 15:43:37] [INFO] - 开始执行插入语句:63
+[2022-02-16 15:44:03] [INFO] - 完成执行插入语句:63
+[2022-02-16 15:46:29] [INFO] - 开始运行生成相关衍生
+[2022-02-16 15:46:29] [INFO] - 当前处理的crawler_id: 100
+[2022-02-16 15:46:34] [DEBUG] - run_zgrab_new:g4c6e.njhfgy.com
+[2022-02-16 15:46:34] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/100/
+[2022-02-16 15:46:34] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 15:47:34] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 15:48:34] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/100443.json
+[2022-02-16 15:48:34] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/10080.json
+[2022-02-16 15:48:34] [INFO] - 开始生成插入语句，长度:117
+[2022-02-16 15:49:00] [INFO] - 完成生成插入语句，长度:117
+[2022-02-16 15:49:00] [INFO] - 开始执行插入语句:117
+[2022-02-16 15:49:00] [INFO] - 完成执行插入语句:117
+[2022-02-16 15:49:00] [INFO] - 当前处理的crawler_id: 104
+[2022-02-16 15:49:13] [DEBUG] - run_zgrab_new:hhhju.ace364.com
+[2022-02-16 15:49:13] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/104/
+[2022-02-16 15:49:13] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 15:50:13] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 15:50:29] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/104443.json
+[2022-02-16 15:50:29] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/10480.json
+[2022-02-16 15:50:29] [INFO] - 开始生成插入语句，长度:10
+[2022-02-16 15:50:37] [INFO] - 完成生成插入语句，长度:10
+[2022-02-16 15:50:37] [INFO] - 开始执行插入语句:10
+[2022-02-16 15:50:37] [INFO] - 完成执行插入语句:10
+[2022-02-16 15:50:37] [INFO] - 当前处理的crawler_id: 105
+[2022-02-16 15:50:50] [DEBUG] - run_zgrab_new:honghui268.com
+[2022-02-16 15:50:50] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/105/
+[2022-02-16 15:50:50] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 15:51:50] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 15:52:50] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/105443.json
+[2022-02-16 15:52:50] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/10580.json
+[2022-02-16 15:52:50] [INFO] - 开始生成插入语句，长度:34
+[2022-02-16 15:53:02] [INFO] - 完成生成插入语句，长度:34
+[2022-02-16 15:53:02] [INFO] - 开始执行插入语句:34
+[2022-02-16 15:53:02] [INFO] - 完成执行插入语句:34
+[2022-02-16 15:53:02] [INFO] - 当前处理的crawler_id: 110
+[2022-02-16 15:53:17] [DEBUG] - run_zgrab_new:jlsg12.com
+[2022-02-16 15:53:17] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/110/
+[2022-02-16 15:53:17] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 15:54:17] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 15:55:17] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/110443.json
+[2022-02-16 15:55:17] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/11080.json
+[2022-02-16 15:55:17] [INFO] - 开始生成插入语句，长度:38
+[2022-02-16 15:55:24] [INFO] - 完成生成插入语句，长度:38
+[2022-02-16 15:55:24] [INFO] - 开始执行插入语句:38
+[2022-02-16 15:55:24] [INFO] - 完成执行插入语句:38
+[2022-02-16 15:55:24] [INFO] - 当前处理的crawler_id: 111
+[2022-02-16 15:55:24] [DEBUG] - 更新数据库状态value为1
+[2022-02-16 15:55:24] [INFO] - 完成运行生成相关衍生
+[2022-02-16 15:55:24] [INFO] - 开始crawlerAll
+[2022-02-16 15:55:25] [DEBUG] - 更新数据库状态为2成功,长度为262
+[2022-02-16 15:55:25] [INFO] - 完成crawlerAll
+[2022-02-16 15:55:25] [INFO] - 开始运行生成相关衍生
+[2022-02-16 15:55:25] [INFO] - 当前处理的crawler_id: 111
+[2022-02-16 15:55:25] [DEBUG] - run_zgrab_new:just677.com:1666
+[2022-02-16 15:55:25] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/111/
+[2022-02-16 15:55:25] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 15:55:27] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 15:55:28] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/111443.json
+[2022-02-16 15:55:28] [DEBUG] - read /mnt/hard_disk/samples/boom_result/https/11180.json
+[2022-02-16 15:55:28] [INFO] - 开始生成插入语句，长度:2
+[2022-02-16 15:55:28] [INFO] - 完成生成插入语句，长度:2
+[2022-02-16 15:55:28] [INFO] - 开始执行插入语句:2
+[2022-02-16 15:55:28] [INFO] - 完成执行插入语句:2
+[2022-02-16 15:55:28] [INFO] - 当前处理的crawler_id: 113
+[2022-02-16 15:55:46] [DEBUG] - run_zgrab_new:km785.top
+[2022-02-16 15:55:46] [DEBUG] - run_zgrab_new/mnt/hard_disk/new/crawler/crawler_result/113/
+[2022-02-16 15:55:46] [DEBUG] - zgrab-option--port=443 --use-https
+[2022-02-16 15:56:46] [DEBUG] - zgrab-option--port=80 
+[2022-02-16 16:03:58] [DEBUG] - crawlerall执行完成
+[2022-02-16 16:04:17] [DEBUG] - crawlerall执行完成

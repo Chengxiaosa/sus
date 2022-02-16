@@ -33,7 +33,7 @@ def get_from_boom_all_in_one(fraud_input_domain):
     try:
         length = rs.rindex('.')
     except ValueError:
-        return []
+        return set()
 
     for k in range(length):
         i = length - k

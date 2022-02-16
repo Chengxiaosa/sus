@@ -3,7 +3,7 @@ import json, requests
 import dns.resolver
 from urllib import parse
 dns_resolver = dns.resolver.Resolver()
-dns_resolver.nameservers = ['1.1.1.1', '8.8.8.8', '114.114.114.114', '223.5.5.5', '223.6.6.6']
+dns_resolver.nameservers = ['114.114.114.114', '223.5.5.5', '223.6.6.6']
 
 from collections import Counter
 # 根据ip，使用pdns技术，获取其他相关dns

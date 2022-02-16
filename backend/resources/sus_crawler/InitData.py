@@ -52,7 +52,8 @@ insert_sqls = []
 for data in csv_domains:
     cluster_id = cluster_id +1
     crawler_id =  crawler_id +1 
-    insert_sqls.append('insert into fraud_crawler_sustainable_test (crawler_id,target_url,task_create_time,value_flag,cluster_id) values ("{}","{}",now(),0,{});'.format(crawler_id,data[0],cluster_id))
+    # crawler_idstr = 'sus'+str(crawler_id)
+    insert_sqls.append('insert into fraud_crawler_sustainable (crawler_id,target_url,task_create_time,value_flag,cluster_id) values ("{}","{}",now(),-2,{});'.format(crawler_id,data[0],cluster_id))
 print(len(insert_sqls))
 db.execute(insert_sqls)
 db.close()

@@ -4,7 +4,7 @@ import dns.resolver
 from urllib import parse
 import datetime
 dns_resolver = dns.resolver.Resolver()
-dns_resolver.nameservers = ['1.1.1.1', '8.8.8.8', '114.114.114.114', '223.5.5.5', '223.6.6.6']
+dns_resolver.nameservers = ['114.114.114.114', '223.5.5.5', '223.6.6.6']
 import sys
 sys.path.append("./backend")
 from db import DB

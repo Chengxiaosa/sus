@@ -5,7 +5,7 @@ const config = {
     },
     mongo: {
         db: '',
-        uri: 'mongodb://fraud:N0_fr%40ud@ml.a0ab.com:27017/fraud_detection'
+         uri: 'mongodb://fraud:N0_fr%40ud@ml.a0ab.com:27017/fraud_detection'
     },
     mysql: {
         host: 'ml.a0ab.com',

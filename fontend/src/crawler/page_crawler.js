@@ -27,7 +27,9 @@ class Crawler {
                 'Accept-Language': 'zh-CN,zh;q=0.9,zh-TW;q=0.8,en;q=0.7'
             });
             const urlname = url
-            if (!url.startsWith('http://') || !url.startsWith('https://') ) {
+
+            
+            if (!urlname.startsWith('http://') && !urlname.startsWith('https://') ) {
                 if(flag == 0){
                     url = 'https://' + url
                 }else{
@@ -81,7 +83,7 @@ class Crawler {
                 const parser = new Parser({});
                 parser.parse(data);
 
-                updateSQL = `update fraud_crawler_sustainable_test set web_status_code=${status}, task_finish_time='${timestamp()}' where crawler_id='${id}';`;
+                updateSQL = `update fraud_crawler_sustainable set web_status_code=${status}, sus_flag=2,task_finish_time='${timestamp()}' where crawler_id='${id}';`;
                 await fs.writeFile(`${dir}/page.mhtml`, data);
 
                 const array = parser.spit();
@@ -111,7 +113,7 @@ class Crawler {
                     errorType = message;
                 }
 
-                updateSQL = `update fraud_crawler_sustainable_test set web_status_code=-1, sus_flag = -5 ,error='${errorType}', task_finish_time='${timestamp()}' where crawler_id='${id}';`;
+                updateSQL = `update fraud_crawler_sustainable set web_status_code=-1, sus_flag = -5 ,error='${errorType}', task_finish_time='${timestamp()}' where crawler_id='${id}';`;
                 const database = this.db;
                 console.log(updateSQL)
                 await database.update(updateSQL);
@@ -158,19 +160,23 @@ class Crawler {
     // }, {concurrency: 50})
     // 使用参数传进来之后 ，先试试看https ,再试试看http
     url = argv[0]
-    // console.log(url)
+    startFlag = 0
+    if (url.startsWith('http://') || url.startsWith('https://') ) {
+        startFlag  = 1 
+    }        
     let falseMessage = ''
     falseMessage = await crawler.newCrawlerTab({id:argv[1],url: argv[0]},0);
     await crawler.close();
     const crawler1 = await new Crawler(puppeteer.devices['iPhone X']);
     crawler1.db = db;
-    if(falseMessage == 'no way'){
+    if(falseMessage == 'no way' && startFlag  != 1 ){
         falseMessage = await crawler1.newCrawlerTab({id:argv[1],url: argv[0]},1);
         crawler1.close();
     }
-    
+
     await db.close();
 
 
     process.exit(0);
 })();
+
