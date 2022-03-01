@@ -4,8 +4,8 @@ import sys
 import struct,socket
 sys.path.append("./backend")
 from db import DB
-csvFile = open("/home/ch/dataBackUp/0105.csv", "r")
-reader = csv.reader(csvFile)
+# csvFile = open("/home/ch/dataBackUp/0105.csv", "r")
+# reader = csv.reader(csvFile)
 from urllib import parse
 def Ip2Int(ip):
     return struct.unpack("!L",socket.inet_aton(ip))[0]

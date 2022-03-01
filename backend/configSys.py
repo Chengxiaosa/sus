@@ -27,7 +27,8 @@ config = {
         'host': '10.176.36.25'
     },
     'seaweedfs':'/home/syang/seaweedfs/data/mount/work_of_scam/webpage/',
-    'result_dir':'/mnt/hard_disk/new/'
+    # 'result_dir':'/mnt/hard_disk/new/'  
+    'result_dir':'/home/chenghao/susData/'  
 
 }
 

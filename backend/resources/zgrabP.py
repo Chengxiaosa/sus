@@ -10,8 +10,11 @@ sys.path.append("./backend")
 from configSys import config
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 Result_DIR = config['result_dir']
+# zgrab_path = '/usr/local/go/bin/pkg/mod/github.com/'
+zgrab_path = '/home/chenghao/'
 logger=Log()
-result_path = '/mnt/hard_disk/samples/boom_result/'
+# result_path = '/mnt/hard_disk/samples/boom_result/'
+result_path = '/home/chenghao/susData/boom_result/'
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 protocal = 'https'
 # ___________________________________________________
@@ -24,16 +27,16 @@ def run_zgrab(input,flag):
     cmd = ''
     if flag == 1:
         print("zgrab dnsPossible")
-        cmd = 'ulimit -n 102400 && cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'dnsPossible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'dns.json'
+        cmd = 'ulimit -n 102400 && cd  '+zgrab_path+'zmap/zgrab2&& cat '+list_path+'dnsPossible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'dns.json'
     elif flag ==2:
         print("zgrab certPossible")
-        cmd = 'ulimit -n 102400 && cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'certPossible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'cert.json'
+        cmd = 'ulimit -n 102400 && cd  '+zgrab_path+'zmap/zgrab2&& cat '+list_path+'certPossible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'cert.json'
     elif flag ==3:
         print("zgrab subnetPossible")
-        cmd = 'ulimit -n 102400 && cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'subnetPossible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'subnet.json'
+        cmd = 'ulimit -n 102400 && cd  '+zgrab_path+'zmap/zgrab2&& cat '+list_path+'subnetPossible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'subnet.json'
     elif flag ==4:
         print("zgrab  boomPossible")
-        cmd = 'ulimit -n 102400 && cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'boomPossible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'boom.json'
+        cmd = 'ulimit -n 102400 && cd  '+zgrab_path+'zmap/zgrab2&& cat '+list_path+'boomPossible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'boom.json'
 
     p = Popen(cmd,shell=True)
     # 等待子进程终止
@@ -52,16 +55,18 @@ def run_zgrab_new(input,crawler_id):
             option = option = '--port=80 '
         # 拼接zgrab2的
         cmd = ''
+        pro_path = result_path+protocal
+        if not os.path.exists(pro_path): os.mkdir(pro_path)                
         # if i ==0:
         #     cmd = 'ulimit -n 102400 && cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'Possible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'.json'
         # else:
         #     cmd = 'ulimit -n 102400 && cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'Possible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(input)+'1.json'
         if i ==0:
             logger.debug('zgrab-option'+option)            
-            cmd = 'cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'Possible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(crawler_id)+'443.json'
+            cmd = 'cd  '+zgrab_path+'zmap/zgrab2&& cat '+list_path+'Possible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(crawler_id)+'443.json'
         else:
             logger.debug('zgrab-option'+option)  
-            cmd = 'cd  /usr/local/go/bin/pkg/mod/github.com/zmap/zgrab2&& cat '+list_path+'Possible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(crawler_id)+'80.json'        
+            cmd = 'cd  '+zgrab_path+'zmap/zgrab2&& cat '+list_path+'Possible.txt | ./zgrab2 http '+option+' --user-agent="Mozilla/5.0 (iPhone; CPU iPhone OS 9_3 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Mobile/13E233 MicroMessenger/6.3.15 NetType/WIFI Language/zh_CN" --timeout=60 --max-redirects=20 --output-file='+result_path+protocal+'/'+str(crawler_id)+'80.json'        
 
         p = Popen(cmd,shell=True)
         # 等待子进程终止

@@ -15,7 +15,8 @@ const config = {
         database: 'fraud_detection_v2'
     },
     // output: `${__dirname}/../seaweedfs/data/mount/work_of_scam/webpage`,
-    output:`/mnt/hard_disk/new/crawler/crawler_result`,
+    // output:`/mnt/hard_disk/new/crawler/crawler_result`,
+    output:`/home/chenghao/susData/crawler/crawler_result`,
     pngquant: `${__dirname}/bin/pngquant`,
     redis: {
         port: 16379,

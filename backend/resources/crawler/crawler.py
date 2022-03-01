@@ -26,18 +26,17 @@ def generate_crawler(url):
 
 
 def generate_cmd(crawler_prepare):
-    # return [['./backend/resources/crawler/node-v14.17.0-linux-x64/bin/node',
-    #          './backend/resources/crawler/crawler.js',
-    #          url]
-    #         for url in crawler_prepare]
     return [['node',
              './fontend/src/crawler/page_crawler.js',
              url,id]
+    # return [['/home/chenghao/node',
+    #          './fontend/src/crawler/page_crawler.js',
+    #          url,id]             
             for url,id in crawler_prepare]            
 
 
 def action(cmd):
-    logging.debug('run cmd: {}'.format(' '.join(cmd)))
+    # logging.debug('run cmd: {}'.format(' '.join(cmd)))
     # print('run cmd: {}'.format(' '.join(cmd)))
     os.system(' '.join(cmd))
 

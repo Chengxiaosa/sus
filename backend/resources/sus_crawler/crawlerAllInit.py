@@ -38,9 +38,6 @@ def crawlerAll():
             num = num+1
             # 进行动态爬虫
             tmp.append([target_url,crawler_id])  
-            # if num >20 :
-            #     crawlerAll_flag = 0 
-            #     break
         crawler(tmp, set())           
         # 结束完了之后 将 状态为1 设置为状态为2
 
