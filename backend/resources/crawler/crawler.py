@@ -5,7 +5,7 @@ import threading
 import os
 import logging
 
-from all_in_one import all_in_one
+# from all_in_one import all_in_one
 
 FILE_DIR = os.path.dirname(os.path.abspath(__file__))
 PARENT_DIR = FILE_DIR[:FILE_DIR.rindex('/')]
@@ -38,6 +38,7 @@ def generate_cmd(crawler_prepare):
 def action(cmd):
     # logging.debug('run cmd: {}'.format(' '.join(cmd)))
     # print('run cmd: {}'.format(' '.join(cmd)))
+    print(cmd)
     os.system(' '.join(cmd))
 
 # 应当传入域名和数据库id
@@ -64,6 +65,6 @@ def crawler(domains, ips):
 if __name__ == '__main__':
     domains=list()
     ips = list()
-    domains.append(["https://www.556bl.com",'111111'])
+    domains.append(["https://www.baidu.com",'111111'])
     crawler(domains,ips)
 

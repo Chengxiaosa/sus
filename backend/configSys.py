@@ -28,7 +28,9 @@ config = {
     },
     'seaweedfs':'/home/syang/seaweedfs/data/mount/work_of_scam/webpage/',
     # 'result_dir':'/mnt/hard_disk/new/'  
-    'result_dir':'/home/chenghao/susData/'  
+    # 'result_dir':'/home/chenghao/susData/'  
+    # 'result_dir':'/mnt/hard_disk/crawler_benig'
+    'result_dir':'/mnt/hard_disk/jiaofu_data/seaweed_data'
 
 }
 

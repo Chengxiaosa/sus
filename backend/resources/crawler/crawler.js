@@ -141,13 +141,14 @@ class Crawler {
 
 (async () => {
     const argv = process.argv.splice(2);
-    if (!argv || argv.length !== 1) {
-        console.log('Parameter error!');
-        process.exit(0);
-    }
+    // if (!argv || argv.length !== 1) {
+    //     console.log('Parameter error!');
+    //     process.exit(0);
+    // }
     const crawler = await new Crawler(puppeteer.devices['iPhone X']);
 
-    await crawler.newCrawlerTab({url: argv[0]});
+    // await crawler.newCrawlerTab({url: argv[0]});
+    await crawler.newCrawlerTab({url: 'www.baidu.com'});    
 
     // const rows = [[10, 'https://www.renrendai.com/'], [11, 'https://www.leyu586.com/'], [12, 'https://xiaodai.meituan.com']];
     // await Promise.map(rows, async (row) => {

@@ -101,8 +101,10 @@ def judgeAll():
     domains = set()
     # select targets
     # 选择库中所有价值flag为0的
-    rows = db.fetch("select crawler_id, target_url,ip from fraud_crawler_sustainable where sus_flag = 2 and web_status_code = 200;")
-    rows_already = db.fetch("select target_url from fraud_crawler_sustainable where value_flag = 0 OR value_flag=1;")
+    # rows = db.fetch("select crawler_id, target_url,ip from fraud_crawler_sustainable_test where sus_flag = 2 and web_status_code = 200;")
+    rows = db.fetch("select crawler_id, target_url,ip from fraud_crawler_sustainable_test where sus_flag = 2 ;")
+    # rows_already = db.fetch("select target_url from fraud_crawler_sustainable_test where value_flag = 0 OR value_flag=1;")
+    rows_already = db.fetch("select target_url from fraud_crawler_sustainable_test where value_flag = 100;")
     db.close()
     # 进行域名生成
     # extract domains
@@ -126,34 +128,34 @@ def judgeAll():
                             a = result["bad_domains"][i]
                         # 这里首先 访问IP 入库的时候已经有IP 了
                         # 再进行城市查询 进行城市表的hit
-                        try:
-                            hitCity(ip)                 
-                            hitHegistrar(target_url)
-                            hitAS(ip)
-                        except:
-                            print('hit 异常')
+                        # try:
+                        #     hitCity(ip)                 
+                        #     hitHegistrar(target_url)
+                        #     hitAS(ip)
+                        # except:
+                        #     print('hit 异常')
                         # 再进行注册商表的hit
                         # 做AS的hit
                         # 这里就直接更新了 有就更新 
-                        insert_sqls.append( 'UPDATE fraud_crawler_sustainable set sus_flag=4,value_flag = 0,ml_fraud={} where crawler_id ="{}";'.format(a,crawler_id))  
+                        insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=4,value_flag = 0,ml_fraud={} where crawler_id ="{}";'.format(a,crawler_id))  
                         
                     else :
                         # 好的
-                        insert_sqls.append( 'UPDATE fraud_crawler_sustainable set sus_flag=3  where crawler_id ="{}";'.format(crawler_id))                                     
+                        insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=3 where crawler_id ="{}";'.format(crawler_id))                                     
                 else :
                     # 爬失败的
-                    insert_sqls.append( 'UPDATE fraud_crawler_sustainable set sus_flag=-1  where crawler_id ="{}";'.format(crawler_id))                             
+                    insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=-1 where crawler_id ="{}";'.format(crawler_id))                             
             except:
                 # logging.info("更新判断sql异常")    
                 # logging.info(sys.exc_info()[0:2]) # 打印错误类型，错误值
                 # logging.info(traceback.extract_tb(sys.exc_info()[2])) #出错位置                        
                 print("更新判断sql异常")    
-                insert_sqls.append( 'UPDATE fraud_crawler_sustainable set sus_flag=-1  where crawler_id ="{}";'.format(crawler_id))                 
+                insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=-1  where crawler_id ="{}";'.format(crawler_id))                 
                 print(sys.exc_info()[0:2]) # 打印错误类型，错误值
                 print(traceback.extract_tb(sys.exc_info()[2])) #出错位置
         else:            
             # 域名重复的
-            insert_sqls.append( 'UPDATE fraud_crawler_sustainable set sus_flag=-2  where crawler_id ="{}";'.format(crawler_id))                                                   
+            insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=-2  where crawler_id ="{}";'.format(crawler_id))                                                   
     # 结束完了之后 将 状态为1 设置为状态为2
 
     print(len(insert_sqls))
@@ -162,6 +164,53 @@ def judgeAll():
     logging.info("更新此状态成功3/4")  
     logging.info(len(insert_sqls))        
     db.close()
+    
+
+def judgeAll_cid():
+    db = DB()
+    domains = set()
+    rows = db.fetch("select crawler_id, target_url,ip from fraud_crawler_sustainable_test where sus_flag = 2 ;")
+    # rows_already = db.fetch("select target_url from fraud_crawler_sustainable_test where value_flag = 0 OR value_flag=1;")
+    rows_already = db.fetch("select target_url from fraud_crawler_sustainable_test where value_flag = 100;")
+    db.close()
+    tmp = set()    
+    insert_sqls = []    
+    already_domain = []
+    for item in rows_already:
+        already_domain.append(item[0])
+    for crawler_id,target_url,ip in rows:
+        if not target_url in already_domain:
+            try:
+                result =  get_result_from_one(target_url)
+                if result:
+                    if result["bad_domains"] :
+                        a= 0 
+                        for i in  result["bad_domains"].keys():
+                            a = result["bad_domains"][i]
+                        insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=4,value_flag = 0,ml_fraud={} where crawler_id ="{}";'.format(a,crawler_id))  
+                        
+                    else :
+                        # 好的
+                        insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=3 where crawler_id ="{}";'.format(crawler_id))                                     
+                else :
+                    # 爬失败的
+                    insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=-1 where crawler_id ="{}";'.format(crawler_id))                             
+            except:                    
+                print("更新判断sql异常")    
+                insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=-1  where crawler_id ="{}";'.format(crawler_id))                 
+                print(sys.exc_info()[0:2]) # 打印错误类型，错误值
+                print(traceback.extract_tb(sys.exc_info()[2])) #出错位置
+        else:            
+            # 域名重复的
+            insert_sqls.append( 'UPDATE fraud_crawler_sustainable_test set sus_flag=-2  where crawler_id ="{}";'.format(crawler_id))                                                   
+    # 结束完了之后 将 状态为1 设置为状态为2
+
+    print(len(insert_sqls))
+    db = DB()    
+    db.execute(insert_sqls)  
+    logging.info("更新此状态成功3/4")  
+    logging.info(len(insert_sqls))        
+    db.close()    
 
 if __name__ == '__main__':
     judgeAll()

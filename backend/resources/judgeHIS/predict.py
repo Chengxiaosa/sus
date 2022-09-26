@@ -88,7 +88,7 @@ def predict_x_from_one(X, correct_domains, error_domains, bin_model_path=FILE_DI
         print(bin_results[i][1])
         if bin_results[i][0] >= 0.9:
             good_domains.append(correct_domains[i-1])
-        elif bin_results[i][1] >= 0.8:
+        elif bin_results[i][1] >= 0.9:
             max_score = mul_results[i].max()
             # 这个分类ID的定义在哪里？
             max_category_id = mul_results[i].argmax()
@@ -107,7 +107,6 @@ def predict_x_from_one(X, correct_domains, error_domains, bin_model_path=FILE_DI
 
 
 def get_vectors_and_domains(target_domain, tokenizer_path=FILE_DIR + "/keywords.json"):
-    # 这里面的地址都要换一下
     tokenizer = create_tokenizer(tokenizer_path)
 
     correct_domains = []
@@ -142,6 +141,29 @@ def get_vector_from_one(target_domain, tokenizer_path=FILE_DIR + "/keywords.json
     error_domains = []    
     vectors = []
     filename = Result_DIR+"/crawler/crawler_result/" + target_domain
+    filename = Result_DIR + "/"+target_domain
+    html_path = filename + "/page.html"    
+    if os.path.isdir(filename):
+        html_path = filename + "/page.html"
+        vec = parse_html(tokenizer, html_path)
+        if len(vec) < 50:
+            error_domains.append(target_domain)
+        else:        
+            vectors.append(vec)
+            correct_domains.append(target_domain)
+    else:
+        error_domains.append(target_domain)
+
+    
+    return vectors, correct_domains, error_domains
+# 存储路径为CID 
+def get_vector_from_one_cid(target_domain,cid, tokenizer_path=FILE_DIR + "/keywords.json"):
+    tokenizer = create_tokenizer(tokenizer_path)
+
+    correct_domains = []
+    error_domains = []    
+    vectors = []
+    filename = Result_DIR + "/"+cid
     html_path = filename + "/page.html"    
     if os.path.isdir(filename):
         html_path = filename + "/page.html"
@@ -178,6 +200,14 @@ def get_result_from_one(domain):
         return results
     return results
 
+def get_result_from_one_cid(domain,cid):
+    vectors, correct_domains, error_domains= get_vector_from_one_cid(domain,cid)
+    results = {}
+    if vectors :
+        results = predict_x_from_one(vectors, correct_domains, error_domains)
+        print(results)
+        return results
+    return results
 
 if __name__ == '__main__':
     '''
